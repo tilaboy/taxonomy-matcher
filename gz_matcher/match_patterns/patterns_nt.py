@@ -1,7 +1,7 @@
 '''MatchPatters: module to load GZ/CT/NT to the tokenized patterns'''
 import json
-from gz_matcher.match_patterns.patterns import Patterns
-from gz_matcher.match_patterns.patterns import PatternTypes
+from .patterns import Patterns
+from .patterns import PatternTypes
 
 
 class PatternsNT(Patterns):
@@ -76,15 +76,19 @@ class PatternsNT(Patterns):
                 id_x_desc_type[code_id] = {
                     'desc': code_description,
                     'type': code_category,
-                    'skill_likelihoods': PatternsNT.surface_form_likelihoods(concept)
+                    'skill_likelihoods': PatternsNT.surface_form_likelihoods(
+                        concept)
                 }
         return id_x_desc_type
 
     @staticmethod
     def surface_form_likelihoods(concept: dict):
-        return {surface_form_entry["surface_form"]: surface_form_entry["skill_likelihood"]
-                for surface_form_entry in concept["surface_forms"]
-                if "skill_likelihood" in surface_form_entry}
+        return {
+            surface_form_entry["surface_form"]:
+                surface_form_entry["skill_likelihood"]
+            for surface_form_entry in concept["surface_forms"]
+            if "skill_likelihood" in surface_form_entry
+        }
 
     @staticmethod
     def read_meta_info(source):

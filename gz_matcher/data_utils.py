@@ -1,6 +1,7 @@
 '''Data Utils'''
 import re
 
+
 def normalize(string):
     '''
     normalize the input string
@@ -33,6 +34,7 @@ def from_file_to_list(file):
             if has_content(line):
                 lines.append(line)
     return lines
+
 
 def fetch_node_text(record, xpath):
     '''

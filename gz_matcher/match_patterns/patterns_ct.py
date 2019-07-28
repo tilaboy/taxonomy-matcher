@@ -1,8 +1,8 @@
 '''MatchPatters: module to load GZ/CT/NT to the tokenized patterns'''
 import xml.etree.ElementTree as ET
 from gz_matcher.data_utils import fetch_node_text
-from gz_matcher.match_patterns.patterns import Patterns
-from gz_matcher.match_patterns.patterns import PatternTypes
+from .patterns import Patterns
+from .patterns import PatternTypes
 
 
 class PatternsCT(Patterns):
@@ -24,12 +24,10 @@ class PatternsCT(Patterns):
         self.tokenized_pattern = self.pattern_tokens_generator(tree_root)
         self.meta_info = self.read_meta_info()
 
-
     @staticmethod
     def _load_ct(pattern_file):
         pattern_tree = ET.parse(pattern_file)
         return pattern_tree.getroot()
-
 
     def pattern_instance_generator(self, source):
         '''
@@ -46,7 +44,6 @@ class PatternsCT(Patterns):
             code_id = record.find('CodeID').text
             for instance in record.iter('InstanceDescription'):
                 yield (instance.text, code_id)
-
 
     @staticmethod
     def codeid_description_mapping(codetable_root):
@@ -66,8 +63,6 @@ class PatternsCT(Patterns):
 
         id_x_desc_type = dict()
         for record in codetable_root.find('CodeRecordList'):
-
-
             code_id = fetch_node_text(record, 'CodeID')
             if code_id is None:
                 continue
@@ -83,8 +78,8 @@ class PatternsCT(Patterns):
                 assert id_x_desc_type[code_id]['type'] == code_category
             else:
                 id_x_desc_type[code_id] = {
-                    'desc':code_description,
-                    'type':code_category
+                    'desc': code_description,
+                    'type': code_category
                 }
         return id_x_desc_type
 

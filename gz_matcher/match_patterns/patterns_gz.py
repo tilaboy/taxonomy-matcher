@@ -1,7 +1,7 @@
 '''MatchPatters: module to load GZ/CT/NT to the tokenized patterns'''
 from gz_matcher.data_utils import has_content
-from gz_matcher.match_patterns.patterns import Patterns
-from gz_matcher.match_patterns.patterns import PatternTypes
+from .patterns import Patterns
+from .patterns import PatternTypes
 
 
 class PatternsGZ(Patterns):
@@ -21,7 +21,6 @@ class PatternsGZ(Patterns):
         self.codeid_description = self.codeid_description_mapping()
         self.tokenized_pattern = self.pattern_tokens_generator(pattern_file)
         self.meta_info = self.read_meta_info()
-
 
     def pattern_instance_generator(self, source):
         '''
@@ -48,10 +47,10 @@ class PatternsGZ(Patterns):
         '''
         return dict()
 
-
     def _validate_pattern(self, pattern):
         '''
-        validate each pattern in the gazetteer/codetable, validate if the line is
+        validate each pattern in the gazetteer/codetable,
+        validate if the line is
             - not a comment line (start with #)
             - contain alphanumber character
 
@@ -65,7 +64,6 @@ class PatternsGZ(Patterns):
         if not has_content(pattern):
             valid = False
         return valid
-
 
     @staticmethod
     def read_meta_info():

@@ -1,6 +1,7 @@
 '''TokenTrie: basic trie class for token'''
 import json
-from gz_matcher.token_position import TokenizedMatch
+from .token_position import TokenizedMatch
+
 
 class TokenTrie():
     '''
@@ -16,7 +17,6 @@ class TokenTrie():
         if patterns:
             self._build(patterns)
 
-
     def __repr__(self):
         return json.dumps(self.token_trie, indent=4)
 
@@ -25,7 +25,6 @@ class TokenTrie():
             self._add_tokens_to_trie(self.token_trie, pattern)
         return
 
-
     def _add_tokens_to_trie(self, sub_trie, pattern):
         token = pattern.tokens.pop(0)
         if token in sub_trie:
@@ -33,19 +32,16 @@ class TokenTrie():
                 self._add_tokens_to_trie(sub_trie[token], pattern)
             else:
                 sub_trie[token][self.end_token] = pattern.code_id
-
         else:
             local_trie = self._append_token_list_to_trie(pattern)
             sub_trie[token] = local_trie
         return
 
-
     def _append_token_list_to_trie(self, pattern):
-        local_trie = {self.end_token:pattern.code_id}
+        local_trie = {self.end_token: pattern.code_id}
         for index in range(len(pattern.tokens) - 1, -1, -1):
-            local_trie = {pattern.tokens[index]:local_trie}
+            local_trie = {pattern.tokens[index]: local_trie}
         return local_trie
-
 
     def match_at_position(self, sub_trie, tokens):
         '''

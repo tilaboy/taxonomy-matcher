@@ -1,6 +1,7 @@
 '''Tokenizer Class'''
 import re
-from gz_matcher.token_position import TokenWithPos
+from .token_position import TokenWithPos
+
 
 class Tokenizer():
     '''
@@ -15,7 +16,6 @@ class Tokenizer():
         else:
             self.regexp = re.compile(r'\w+|[^\w\s]+')
 
-
     def tokenize(self, text):
         '''
         tokenize
@@ -26,7 +26,6 @@ class Tokenizer():
         output: tokens (with position info)
         '''
         return [match.group() for match in self.regexp.finditer(text)]
-
 
     def tokenize_with_pos_info(self, text):
         '''

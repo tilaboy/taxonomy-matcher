@@ -6,6 +6,7 @@ various class to help store tokens with extra informations
     - TokenizedMatch
 '''
 
+
 class TokenWithPos:
     '''
     TokenWithPos: token with start and end position in the text
@@ -22,6 +23,7 @@ class TokenWithPos:
     def __repr__(self):
         return "{} [{}:{}]".format(self.text, self.start_pos, self.end_pos)
 
+
 class TokenizedPattern:
     '''
     TokenizedPattern: tokenized patterns with codeid
@@ -36,8 +38,8 @@ class TokenizedPattern:
         self.skill_likelihood = skill_likelihood
 
     def __repr__(self):
-        return "\ntokens: {}\ncode id: {}\nskill_likelihood: {}]".format( \
-        self.tokens, self.code_id, self.skill_likelihood)
+        return "\ntokens: {}\ncode id: {}\nskill_likelihood: {}]".format(
+            self.tokens, self.code_id, self.skill_likelihood)
 
     def pattern_form(self):
         return " ".join([token.text for token in self.tokens])
@@ -60,7 +62,7 @@ class TokenizedMatch(TokenizedPattern):
         return [self.tokens[0].start_pos, self.tokens[-1].end_pos]
 
     def __repr__(self):
-        return "\ntokens: {}\ncode id: {}\nstart: {}\nend: {}]".format( \
+        return "\ntokens: {}\ncode id: {}\nstart: {}\nend: {}]".format(
             self.tokens,
             self.code_id,
             self.tokens[0].start_pos,

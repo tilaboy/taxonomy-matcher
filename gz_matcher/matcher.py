@@ -1,13 +1,13 @@
 import logging
 
-from gz_matcher.token_trie import TokenTrie
-from gz_matcher.tokenizer import Tokenizer
+from .token_trie import TokenTrie
+from .tokenizer import Tokenizer
 
-from gz_matcher.match_patterns.patterns_gz import PatternsGZ
-from gz_matcher.match_patterns.patterns_ct import PatternsCT
-from gz_matcher.match_patterns.patterns_nt import PatternsNT
-from gz_matcher.matched_phrase import MatchedPhrase
-from gz_matcher import data_utils
+from .match_patterns import PatternsGZ
+from .match_patterns import PatternsCT
+from .match_patterns import PatternsNT
+from .matched_phrase import MatchedPhrase
+from . import data_utils
 
 
 class GazetteerMatcher():
@@ -79,12 +79,13 @@ class GazetteerMatcher():
         idx = 0
         nr_tokens = len(tokens)
         while idx < nr_tokens:
-            local_match = self.trie_matcher.longest_match_at_position( \
+            local_match = self.trie_matcher.longest_match_at_position(
                 self.trie_matcher.token_trie, tokens[idx:])
 
             if local_match:
                 start_pos, end_pos = local_match.text_range()
-                left_context, right_context = self.prepare_context(tokens, local_match, idx, text)
+                left_context, right_context = self.prepare_context(
+                    tokens, local_match, idx, text)
                 surface_form = local_match.pattern_form()
                 yield MatchedPhrase(
                     surface_form,
@@ -96,8 +97,9 @@ class GazetteerMatcher():
                     self.code_id_property_lookup(local_match.code_id, 'type'),
                     left_context,
                     right_context,
-                    self.code_id_property_lookup(local_match.code_id, 'skill_likelihoods',
-                                                 dict()).get(surface_form, None),
+                    self.code_id_property_lookup(
+                        local_match.code_id, 'skill_likelihoods', dict()
+                    ).get(surface_form, None),
                 )
                 idx += len(local_match.tokens)
             else:
@@ -116,10 +118,10 @@ class GazetteerMatcher():
                 r_context_begin + self.CONTEXT_LENGTH
             )
             if l_context_begin < l_context_end:
-                l_context = text[tokens[l_context_begin].start_pos: \
+                l_context = text[tokens[l_context_begin].start_pos:
                                  tokens[l_context_end - 1].end_pos]
             if r_context_begin < r_context_end:
-                r_context = text[tokens[r_context_begin].start_pos: \
+                r_context = text[tokens[r_context_begin].start_pos:
                                  tokens[r_context_end - 1].end_pos]
         return l_context, r_context
 
@@ -127,9 +129,11 @@ class GazetteerMatcher():
         code_property = default
         if code_id is not None:
             if code_id in self.code_property_mapping:
-                code_property = \
-                    self.code_property_mapping[code_id].get(property_name, default)
+                code_property = self.code_property_mapping[code_id].get(
+                    property_name, default)
             else:
-                logging.warning('WARNING: no property {} for codeid: {}'.format( \
-                    property_name, code_id))
+                logging.warning(
+                    'WARNING: no property {} for codeid: {}'.
+                    format(property_name, code_id)
+                )
         return code_property

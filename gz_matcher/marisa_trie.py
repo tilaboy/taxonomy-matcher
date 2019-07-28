@@ -1,6 +1,6 @@
 from marisa_trie import Trie
-from gz_matcher.data_utils import prepare_from_gz, count_tokens, tokenize
-import re
+from .data_utils import prepare_from_gz, count_tokens, tokenize
+
 
 class TokenTrie(Trie):
     def __init__(self, patterns=None, keyset=None, splitter=' '):
@@ -50,9 +50,9 @@ class TokenTrie(Trie):
                     update_longest_pattern = 1
             if update_longest_pattern == 1:
                 match_at_pos[idx] = {
-                    'text':pattern,
+                    'text': pattern,
                     'start': words[current_idx][1],
-                    'end': words[current_idx + nr_tokens -1][2],
+                    'end': words[current_idx + nr_tokens - 1][2],
                     'nr_tokens': nr_tokens
                 }
         for idx, match in match_at_pos.items():

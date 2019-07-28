@@ -15,9 +15,8 @@ class Patterns():
         if os.path.isfile(pattern_file):
             self.pattern_file = pattern_file
         else:
-            raise Exception("ERROR: could not found file 'pattern_file': {}" \
-            .format(pattern_file))
-
+            raise Exception("ERROR: could not found file 'pattern_file': {}"
+                            .format(pattern_file))
 
     def pattern_tokens_generator(self, source):
         '''
@@ -35,7 +34,6 @@ class Patterns():
                 self.tokenizer.tokenize(normalize(instance)),
                 code_id
             )
-
 
     def pattern_instance_generator(self, source):
         '''to be implemented in the sub class'''
