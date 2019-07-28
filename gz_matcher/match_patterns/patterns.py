@@ -49,6 +49,6 @@ class PatternTypes():
     Basic class to store the pattern file type
     '''
     PATTERN_FILE_TYPE_GZ = 'gazetteer'
-    PATTERN_FILE_TYPE_CT = 'tk_codetable'
+    PATTERN_FILE_TYPE_CT = 'codetable'
     PATTERN_FILE_TYPE_NT = 'normalization_table'
     PATTERN_FILE_TYPE_DEFAULT = 'gazetteer'

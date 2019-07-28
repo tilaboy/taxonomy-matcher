@@ -9,7 +9,7 @@ class PatternsCT(Patterns):
     '''
     PatternsCT:
 
-    Class to store pattern information from Textkernel Codetable
+    Class to store pattern information from Taxonomy Codetable
 
     attibutes:
     codeid_description: a mapping from codeid to description and category, e.g.

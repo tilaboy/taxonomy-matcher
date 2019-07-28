@@ -85,7 +85,7 @@ risk assessment
 .....
 ```
 
-- From Textkernel Codetable:
+- From Taxonomy Codetable:
 ```
 from gz_matcher.matcher import GazetteerMatcher
 ct_matcher = GazetteerMatcher(codetable=ct_file)

@@ -20,7 +20,7 @@ class GazetteerMatcher():
     Params:
         - normtable: normalized table file in json format
         - gazetteer: gazetteer file
-        - codetable: textkernel codetable format file
+        - codetable: taxonomy codetable format file
         - blacklist: blacklist file
         - with_context: also output the context if set to True
     '''
