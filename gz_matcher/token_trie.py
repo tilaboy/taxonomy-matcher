@@ -1,14 +1,24 @@
-from gz_matcher.tokenizer import Tokenizer
+'''TokenTrie: basic trie class for token'''
+import json
+from gz_matcher.token_position import TokenizedMatch
 
 class TokenTrie():
+    '''
+    A basic trie class for token, used for quick token sequence searching
 
-    def __init__(self, patterns=None, tokenizer=None):
+    Paramters:
+        - patterns: a list of tokenized pattern object
+        - end_token: a special string to mark the end of a pattern sequence
+    '''
+    def __init__(self, patterns=None):
         self.token_trie = dict()
         self.end_token = 'xxENDxx'
-        self.tokenizer = tokenizer or Tokenizer()
         if patterns:
             self._build(patterns)
 
+
+    def __repr__(self):
+        return json.dumps(self.token_trie, indent=4)
 
     def _build(self, patterns):
         for pattern in patterns:
@@ -16,34 +26,65 @@ class TokenTrie():
         return
 
 
-    def _add_tokens_to_trie(self, sub_trie, tokens):
-        token = tokens.pop(0)
+    def _add_tokens_to_trie(self, sub_trie, pattern):
+        token = pattern.tokens.pop(0)
         if token in sub_trie:
-            if tokens:
-                self._add_tokens_to_trie(sub_trie[token], tokens)
+            if pattern.tokens:
+                self._add_tokens_to_trie(sub_trie[token], pattern)
             else:
-                sub_trie[token][self.end_token] = None
+                sub_trie[token][self.end_token] = pattern.code_id
+
         else:
-            local_trie = self._append_token_list_to_trie(tokens)
+            local_trie = self._append_token_list_to_trie(pattern)
             sub_trie[token] = local_trie
         return
 
 
-    def _append_token_list_to_trie(self, tokens):
-        local_trie = {self.end_token: None}
-        for index in range(len(tokens) - 1, -1, -1):
-            local_trie = {tokens[index]:local_trie}
+    def _append_token_list_to_trie(self, pattern):
+        local_trie = {self.end_token:pattern.code_id}
+        for index in range(len(pattern.tokens) - 1, -1, -1):
+            local_trie = {pattern.tokens[index]:local_trie}
         return local_trie
 
 
-    def _search_at_position(self, sub_trie, tokens):
+    def match_at_position(self, sub_trie, tokens):
+        '''
+        search all matched phrases start at fixed position
+
+        params:
+            - sub_trie: token_trie or part of the token_trie
+            - tokens: tokens from the input text,
+
+        output:
+            - all matched sequences
+        '''
         matched = []
         for token in tokens:
-            if token[0] in sub_trie:
-                sub_trie = sub_trie[token[0]]
+            if token.text in sub_trie:
+                sub_trie = sub_trie[token.text]
                 matched.append(token)
                 if self.end_token in sub_trie:
-                    yield matched
+                    yield TokenizedMatch(
+                        matched[:],
+                        sub_trie[self.end_token],
+                    )
             else:
-                matched = []
                 break
+
+    def longest_match_at_position(self, sub_trie, tokens):
+        '''
+        get the last(natually to be the longest) matched phrases start at any
+        fixed position
+
+        params:
+            - sub_trie: token_trie or part of the token_trie
+            - tokens: tokens from the input text,
+
+        output:
+            - all matched sequences
+        '''
+        last_match = []
+        all_matches = list(self.match_at_position(sub_trie, tokens))
+        if all_matches:
+            last_match = all_matches[-1]
+        return last_match

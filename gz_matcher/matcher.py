@@ -1,76 +1,135 @@
-import re
+import logging
 
 from gz_matcher.token_trie import TokenTrie
 from gz_matcher.tokenizer import Tokenizer
-from gz_matcher.data_utils import normalize, validate_pattern, from_file_to_list
+
+from gz_matcher.match_patterns.patterns_gz import PatternsGZ
+from gz_matcher.match_patterns.patterns_ct import PatternsCT
+from gz_matcher.match_patterns.patterns_nt import PatternsNT
+from gz_matcher.matched_phrase import MatchedPhrase
+from gz_matcher import data_utils
+
 
 class GazetteerMatcher():
+    '''
+    GazetteerMatcher finds all matched phrases from the input text. It contains
+        - an internal tokenizer applied on both patterns and input text
+        - a token trie structure created eithor from gazetteer or codetable
+        - a dictionary to map codeID to code_description and code_category
+
+    Params:
+        - normtable: normalized table file in json format
+        - gazetteer: gazetteer file
+        - codetable: textkernel codetable format file
+        - blacklist: blacklist file
+        - with_context: also output the context if set to True
+    '''
+
+    # the magic number is related to the average length of the context in the
+    # training data
+    CONTEXT_LENGTH = 14
+
     def __init__(
             self,
+            normtable=None,
             gazetteer=None,
             codetable=None,
             blacklist=None,
-            regexp=None
-        ):
+            regexp=None,
+            with_context=False
+    ):
         self.regexp = regexp
         self.tokenizer = Tokenizer(self.regexp)
-        self.blacklist = []
+        self.blacklist = dict()
+        self.with_context = with_context
 
-        if gazetteer:
-            pattern_generator = self._generator_from_gz(gazetteer)
-        if codetable:
-            pattern_generator = self._generator_from_codetable(codetable)
+        if normtable:
+            match_patterns = PatternsNT(self.tokenizer, normtable)
+        elif gazetteer:
+            match_patterns = PatternsGZ(self.tokenizer, gazetteer)
+        elif codetable:
+            match_patterns = PatternsCT(self.tokenizer, codetable)
+        else:
+            raise Exception('source file is required to build a \
+            GazetteerMatcher object')
+
+        self.code_property_mapping = match_patterns.codeid_description
+        self.meta_info = match_patterns.meta_info
+
         if blacklist:
-            self.blacklist = from_file_to_list(blacklist)
+            self.blacklist = data_utils.from_file_to_list(blacklist)
 
         self.trie_matcher = TokenTrie(
-            patterns=pattern_generator,
-            tokenizer = self.tokenizer
-            )
-
-
-    def _generator_from_list(self, list ):
-
-        return (
-            self.tokenizer.tokenize(normalize(line.rstrip()), pos_info=False)
-            for line in list
-            if validate_pattern(line, self.blacklist)
+            patterns=match_patterns.tokenized_pattern
         )
 
-
-    def _generator_from_gz(self, gz_file, regexp=None):
-        tokenizer = Tokenizer(regexp)
-        with open(gz_file, 'rt') as gz_fh:
-            for line in gz_fh:
-                line = line.rstrip()
-                if validate_pattern(line, self.blacklist):
-                    yield self.tokenizer.tokenize(normalize(line), pos_info=False)
-
-
-    # dummy function, need to be updated
-    def _generator_from_codetable(self, gz_file, regexp=None):
-        tokenizer = Tokenizer(regexp)
-        with open(gz_file, 'rt') as gz_fh:
-            patterns = gz_fh.read()
-        return self._generator_from_list("\n".split(patterns))
-
-
     def matching(self, text):
-        tokens = self.tokenizer.tokenize(normalize(text))
-        nr_tokens = len(tokens)
+        '''
+        find all matching phrases from the input text
+
+        params:
+            - text: string
+
+        output:
+            - all matching phrases as MatchedPhrase object
+        '''
+        tokens = self.tokenizer.tokenize_with_pos_info(text)
+        for token in tokens:
+            token.text = data_utils.normalize(token.text)
         idx = 0
-        while idx < len(tokens):
-            longest_matched = []
-            end_of_longest_matched = 0
-            for matched in self.trie_matcher._search_at_position(self.trie_matcher.token_trie,tokens[idx:]):
-                if matched[-1][2] > end_of_longest_matched :
-                    end_of_longest_matched = matched[-1][2]
-                    longest_matched = matched
-            if longest_matched:
-                #matched_string = ' '.join([word[0] for word in longest_matched])
-                start = longest_matched[0][1]
-                end = longest_matched[-1][2]
-                yield (text[start:end+1], start, end)
-                idx += len(longest_matched)
+        nr_tokens = len(tokens)
+        while idx < nr_tokens:
+            local_match = self.trie_matcher.longest_match_at_position( \
+                self.trie_matcher.token_trie, tokens[idx:])
+
+            if local_match:
+                start_pos, end_pos = local_match.text_range()
+                left_context, right_context = self.prepare_context(tokens, local_match, idx, text)
+                surface_form = local_match.pattern_form()
+                yield MatchedPhrase(
+                    surface_form,
+                    text[start_pos:end_pos],
+                    start_pos,
+                    end_pos - 1,  # prepare for the entity fromwork (in perl)
+                    local_match.code_id,
+                    self.code_id_property_lookup(local_match.code_id, 'desc'),
+                    self.code_id_property_lookup(local_match.code_id, 'type'),
+                    left_context,
+                    right_context,
+                    self.code_id_property_lookup(local_match.code_id, 'skill_likelihoods',
+                                                 dict()).get(surface_form, None),
+                )
+                idx += len(local_match.tokens)
             else:
                 idx += 1
+
+    def prepare_context(self, tokens, local_match, idx, text):
+        l_context = ''
+        r_context = ''
+        if self.with_context:
+            nr_matched_tokens = len(local_match.tokens)
+            l_context_begin = max(0, idx - self.CONTEXT_LENGTH)
+            l_context_end = idx
+            r_context_begin = idx + nr_matched_tokens
+            r_context_end = min(
+                len(tokens),
+                r_context_begin + self.CONTEXT_LENGTH
+            )
+            if l_context_begin < l_context_end:
+                l_context = text[tokens[l_context_begin].start_pos: \
+                                 tokens[l_context_end - 1].end_pos]
+            if r_context_begin < r_context_end:
+                r_context = text[tokens[r_context_begin].start_pos: \
+                                 tokens[r_context_end - 1].end_pos]
+        return l_context, r_context
+
+    def code_id_property_lookup(self, code_id, property_name, default=None):
+        code_property = default
+        if code_id is not None:
+            if code_id in self.code_property_mapping:
+                code_property = \
+                    self.code_property_mapping[code_id].get(property_name, default)
+            else:
+                logging.warning('WARNING: no property {} for codeid: {}'.format( \
+                    property_name, code_id))
+        return code_property
