@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeTable>
+	<CodeTableInfo>
+		<InfoItem name="codeproperties_langs">DE-DK-EN-ES-FR-IT-NL</InfoItem>
+		<InfoItem name="iso_added">5218</InfoItem>
+		<InfoItem name="langlabels_instances">DE-DK-EN-ES-FR-IT-NL</InfoItem>
+	</CodeTableInfo>
+	<CodeRecordList>
+		<CodeRecord>
+			<CodeID>2</CodeID>
+			<CodeDescription>Female</CodeDescription>
+			<CodeProperty name="CodeDescription">Female</CodeProperty>
+			<CodeProperty name="ISO-5218">2</CodeProperty>
+			<CodeProperty name="codeid">2</CodeProperty>
+			<CodeProperty name="description.en">Female</CodeProperty>
+			<CodeProperty name="description.fr">Femme</CodeProperty>
+			<CodeProperty name="description.nl">Vrouw</CodeProperty>
+			<InstanceList>
+				<Instance>
+					<InstanceDescription>female</InstanceDescription>
+				</Instance>
+				<Instance>
+					<InstanceDescription>female or vrouw</InstanceDescription>
+				</Instance>
+				<Instance>
+					<InstanceDescription>Female/Femme</InstanceDescription>
+				</Instance>
+			</InstanceList>
+		</CodeRecord>
+		<CodeRecord>
+			<CodeID>1</CodeID>
+			<CodeDescription>Male</CodeDescription>
+			<CodeProperty name="CodeDescription">Male</CodeProperty>
+			<CodeProperty name="ISO-5218">1</CodeProperty>
+			<CodeProperty name="codeid">1</CodeProperty>
+			<CodeProperty name="description.en">Male</CodeProperty>
+			<CodeProperty name="description.fr">Homme</CodeProperty>
+			<CodeProperty name="description.nl">Man</CodeProperty>
+			<InstanceList>
+				<Instance>
+					<InstanceDescription>male</InstanceDescription>
+				</Instance>
+				<Instance>
+					<InstanceDescription>male or man</InstanceDescription>
+				</Instance>
+				<Instance>
+					<InstanceDescription>Male/Homm</InstanceDescription>
+				</Instance>
+			</InstanceList>
+		</CodeRecord>
+		<CodeRecord>
+			<CodeID>3</CodeID>
+			<CodeDescription>Transgender</CodeDescription>
+			<CodeProperty name="CodeDescription">Transgender</CodeProperty>
+			<CodeProperty name="ISO-5218">3</CodeProperty>
+			<CodeProperty name="codeid">3</CodeProperty>
+			<CodeProperty name="description.en">Transgender</CodeProperty>
+			<CodeProperty name="description.fr">Transgender</CodeProperty>
+			<CodeProperty name="description.nl">Transgender</CodeProperty>
+			<InstanceList>
+				<Instance>
+					<InstanceDescription>transgender</InstanceDescription>
+				</Instance>
+				<Instance>
+					<InstanceDescription>before male now female</InstanceDescription>
+				</Instance>
+				<Instance>
+					<InstanceDescription>before female now male</InstanceDescription>
+				</Instance>
+			</InstanceList>
+		</CodeRecord>
+		<CodeRecord>
+			<CodeID>0</CodeID>
+			<CodeDescription>Not known</CodeDescription>
+			<CodeProperty name="CodeDescription">Not known</CodeProperty>
+			<CodeProperty name="ISO-5218">0</CodeProperty>
+			<CodeProperty name="codeid">0</CodeProperty>
+			<CodeProperty name="description.en">Not known</CodeProperty>
+			<CodeProperty name="description.fr">Ignore</CodeProperty>
+			<CodeProperty name="description.nl">Onbekend</CodeProperty>
+			<InstanceList/>
+		</CodeRecord>
+	</CodeRecordList>
+</CodeTable>

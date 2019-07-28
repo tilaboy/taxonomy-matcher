@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "language": "EN",
+    "release_datetime": "2019-04-17T12:22:10.729673",
+    "concept_type": "skills",
+    "purpose": "normalization"
+  },
+  "concepts": [
+    {
+      "display_name": "Linked Server",
+      "category": "Comp Skill",
+      "id": "KSA8JE6A22KUR2OLU7RG",
+      "surface_forms": [
+        {
+          "surface_form": "linked server",
+          "skill_likelihood": 0.5
+        }
+      ]
+    },
+    {
+      "display_name": "Build Script",
+      "category": "Comp Skill",
+      "id": "KSFVUGQPCSO6RS0X07G8",
+      "surface_forms": [
+        {
+          "surface_form": "build script",
+          "skill_likelihood": 0.5
+        }
+      ]
+    },
+    {
+      "display_name": "User Interface Programming",
+      "category": "Comp Skill",
+      "id": "KSHI3HJOWVSR6PGHQ7CA",
+      "surface_forms": [
+        {
+          "surface_form": "user interface programming",
+          "skill_likelihood": 0.5
+        },
+        {
+          "surface_form": "ui programming",
+          "skill_likelihood": 0.5
+        }
+      ]
+    },
+    {
+      "display_name": "Oracle Agile Product Lifecycle Management",
+      "category": "Comp Skill",
+      "id": "KS0W11G2V8ETTQCKOV7S",
+      "surface_forms": [
+        {
+          "surface_form": "oracle agile product lifecycle management",
+          "skill_likelihood": 0.5
+        },
+        {
+          "surface_form": "oracle agile plm",
+          "skill_likelihood": 0.5
+        }
+      ]
+    },
+    {
+      "display_name": "Mahout",
+      "category": "Comp Skill",
+      "id": "KSRT0BE62KLQPF7WZC3O",
+      "surface_forms": [
+        {
+          "surface_form": "apache mahout",
+          "skill_likelihood": 0.5
+        },
+        {
+          "surface_form": "mahout",
+          "skill_likelihood": 0.5
+        },
+        {
+          "surface_form": "oracle apache mahout",
+          "skill_likelihood": 0.5
+        }
+      ]
+    }
+  ]
+}
