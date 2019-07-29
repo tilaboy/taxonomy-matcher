@@ -11,9 +11,11 @@ class PatternsNT(Patterns):
     Class to store pattern information from Normalized Code JSON file
 
     attibutes:
-    codeid_description: a mapping from codeid to description and category, e.g.
-    "1020": {"desc": "Arabic", "type": "language_skill"}
-    tokenized_pattern: a tokenized pattern generator
+
+        - codeid_description: a mapping from codeid to description and
+          category, e.g. "1020": {"desc": "Arabic", "type": "language_skill"}
+
+        - tokenized_pattern: a tokenized pattern generator
     '''
 
     def __init__(self, tokenizer, pattern_file):
@@ -55,10 +57,8 @@ class PatternsNT(Patterns):
 
         output:
             - the dictionry of codeid to description and category
-            dict[code_id] = {
-                'desc':code_description,
-                'type':code_category
-            }
+
+              dict[code_id] = {'desc':code_description, 'type':code_category}
         '''
 
         id_x_desc_type = dict()

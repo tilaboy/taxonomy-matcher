@@ -1,4 +1,9 @@
-'''Class for the matched Tokens/Phrase'''
+'''
+MatchedPhrase:
+
+matched phrases found from text can be saved as MatchedPhrase object.
+Apart from the matched phrase itself, the object also add information
+like postion, matched code, and context info.'''
 
 
 class MatchedPhrase:

@@ -1,4 +1,11 @@
-'''TokenTrie: basic trie class for token'''
+'''
+TokenTrie:
+
+Token based trie strcture. The trie is build from a sequence of tokens, and
+each token may has the position information from the origin text.
+
+'''
+
 import json
 from .token_position import TokenizedMatch
 

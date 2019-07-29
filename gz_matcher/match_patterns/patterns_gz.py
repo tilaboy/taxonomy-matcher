@@ -11,8 +11,10 @@ class PatternsGZ(Patterns):
     Class to store pattern information from Gazetteer file
 
     attibutes:
-    codeid_description: empty dictionary
-    tokenized_pattern: a tokenized pattern generator
+
+    - codeid_description: empty dictionary
+
+    - tokenized_pattern: a tokenized pattern generator
     '''
 
     def __init__(self, tokenizer, pattern_file):
@@ -32,7 +34,9 @@ class PatternsGZ(Patterns):
             - source: gz_file
 
         output:
+
             - a list of token list, e.g. [['a', 'b'], ['c', 'd', 'e']]
+
         '''
         with open(source, 'r+', encoding="utf-8") as gz_fh:
             for line in gz_fh:

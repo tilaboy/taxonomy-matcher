@@ -12,9 +12,11 @@ class PatternsCT(Patterns):
     Class to store pattern information from Taxonomy Codetable
 
     attibutes:
-    codeid_description: a mapping from codeid to description and category, e.g.
-    "1020": {"desc": "Arabic", "type": "language_skill"}
-    tokenized_pattern: a tokenized pattern generator
+
+        - codeid_description: a mapping from codeid to description and
+          category, e.g. "1020": {"desc": "Arabic", "type": "language_skill"}
+
+        - tokenized_pattern: a tokenized pattern generator
     '''
     def __init__(self, tokenizer, pattern_file):
         super(PatternsCT, self).__init__(tokenizer, pattern_file)
@@ -38,6 +40,7 @@ class PatternsCT(Patterns):
 
         output:
             - the pattern, codeid pairs, e.g. ('java developer', '1024')
+
         '''
 
         for record in source.find('CodeRecordList'):
@@ -51,14 +54,15 @@ class PatternsCT(Patterns):
         build the codeid to description and category mapping
 
         params:
+
             - codetable_root: ElementTree root object
 
         output:
+
             - the dictionry of codeid to description and category
-            dict[code_id] = {
-                'desc':code_description,
-                'type':code_category
-            }
+
+              dict[code_id] = {'desc':code_description, 'type':code_category}
+
         '''
 
         id_x_desc_type = dict()
@@ -86,7 +90,7 @@ class PatternsCT(Patterns):
     @staticmethod
     def read_meta_info():
         '''
-        The meta_info for the codetable is not implemented,
-        output a empty dictionary
+        The meta_info for the codetable is not implemented, output a empty
+        dictionary
         '''
         return dict()

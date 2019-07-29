@@ -1,5 +1,6 @@
 '''
 Token Classes:
+
 various class to help store tokens with extra informations
     - TokenWithPos
     - TokenizedPattern

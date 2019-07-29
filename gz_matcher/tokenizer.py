@@ -1,4 +1,6 @@
-'''Tokenizer Class'''
+'''
+Tokenizer Class
+'''
 import re
 from .token_position import TokenWithPos
 
@@ -8,6 +10,7 @@ class Tokenizer():
     A basic Tokenizer class to tokenize strings and patterns
 
     Parameters:
+
         - regexp: regexp used to tokenize the string
     '''
     def __init__(self, regexp=None):
@@ -21,9 +24,11 @@ class Tokenizer():
         tokenize
 
         params:
+
             - text: string
+
             - pos_info: also output the position information when tokenizing
-        output: tokens (with position info)
+              output: tokens (with position info)
         '''
         return [match.group() for match in self.regexp.finditer(text)]
 
@@ -32,8 +37,11 @@ class Tokenizer():
         tokenize
 
         params:
+
             - text: string
+
         output:
+
             - a list of Token object
         '''
         tokens = []

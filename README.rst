@@ -4,20 +4,13 @@ gazetteer-matcher
 Description
 -----------
 
-Given a gazetteer/taxonomy and some input document, ``gz-matcher`` could
-be used to find all matched phrases
+Given a gazetteer/taxonomy and some input text, ``gz-matcher`` can
+be used to find all matched phrases.
 
 Requirements
 ------------
 
 Python 3.6+
-
-Installation
-------------
-
-::
-
-    pip install gz-matcher
 
 Usage
 -----
@@ -25,16 +18,16 @@ Usage
 Use gazetteer-matcher module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
--  From normalized table in json format:
+-  From normalization table in JSOM format:
 
-   ::
+::
 
-       from gz_matcher.matcher import GazetteerMatcher
-       gz_matcher = GazetteerMatcher(normtable=json_file)
-       for matched in gz_matcher.matching(text):
+   from gz_matcher.matcher import GazetteerMatcher
+   gz_matcher = GazetteerMatcher(normtable=json_file)
+   for matched in gz_matcher.matching(text):
        print(matched)
 
-And an example of the Taxonomy in JSON:
+And an example of the normalization table in JSON:
 
 ::
 
@@ -79,11 +72,11 @@ And an example of the Taxonomy in JSON:
 
 -  From gazetteer:
 
-   ::
+::
 
-       from gz_matcher.matcher import GazetteerMatcher
-       gz_matcher = GazetteerMatcher(gazetteer=gz_file)
-       for matched in gz_matcher.matching(text):
+   from gz_matcher.matcher import GazetteerMatcher
+   gz_matcher = GazetteerMatcher(gazetteer=gz_file)
+   for matched in gz_matcher.matching(text):
        print(matched)
 
 and an example of the gazetteer
@@ -99,11 +92,11 @@ and an example of the gazetteer
 
 -  From Taxonomy Codetable:
 
-   ::
+::
 
-       from gz_matcher.matcher import GazetteerMatcher
-       ct_matcher = GazetteerMatcher(codetable=ct_file)
-       for matched in ct_matcher.matching(text):
+   from gz_matcher.matcher import GazetteerMatcher
+   ct_matcher = GazetteerMatcher(codetable=ct_file)
+   for matched in ct_matcher.matching(text):
        print(matched)
 
 CodeTable is a XML version of the JSON example given above.
@@ -111,20 +104,24 @@ CodeTable is a XML version of the JSON example given above.
 other functions
 ~~~~~~~~~~~~~~~
 
--  Context words: When context are needed for extracted phrases, e.g.
-   for some validation functions, enable the with\_context option:
+-  Context words:
 
-   ::
+When context are needed for matched phrases, e.g. for the following up
+validation functions, enable the ``with\_context`` option:
 
-       from gz_matcher.matcher import GazetteerMatcher
-       gz_matcher = GazetteerMatcher(normtable=json_file,with_context=True)
-       for matched in gz_matcher.matching(text):
+::
+
+   from gz_matcher.matcher import GazetteerMatcher
+   gz_matcher = GazetteerMatcher(normtable=json_file,with_context=True)
+   for matched in gz_matcher.matching(text):
        print(matched.left_context, matched.right_context)
 
--  Code Property lookup If need to lookup the property of an Code in the
-   taxonomy, check the matcher Class property 'code\_property\_mapping',
-   it is a dictionary mapping id to description and category, it is in
-   the form of:
+-  Code Property lookup
+
+If need to lookup the property of an Code in the taxonomy,
+check the matcher Class property 'code\_property\_mapping',
+it is a dictionary mapping id to description and category, it is in
+the form of:
 
 ::
 
@@ -143,13 +140,14 @@ E.g. to get the description of the codeid:
     if codeid in gz_matcher.code_property_mapping:
         print(gz_matcher.code_property_mapping[codeid]['desc'])
 
-check the metainfo of the Taxonomy or Gazetteer:
+
+check the Metainfo of the Taxonomy or Gazetteer:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Note: currently only available for the Normalized code json.
+Note: currently only available for the Normalized code JSOM.
 
-The metainfo can be stored in meta part of the json document, e.g. if
-the following information is listed in the json meta section:
+The metainfo can be stored in meta part of the JSON document, e.g. if
+the following information is listed in the JSOM meta section:
 
 ::
 
@@ -172,35 +170,44 @@ output will be:
 
 ::
 
-    {'language': 'EN',
-    'release_datetime': '2019-04-17T12:22:10.729673',
-    'concept_type': 'skills',
-    'purpose': 'normalization'}
+    {
+      'language': 'EN',
+      'release_datetime': '2019-04-17T12:22:10.729673',
+      'concept_type': 'skills',
+      'purpose': 'normalization'
+    }
 
-output of the matching: MatchedPhrase
+matched phrase object: MatchedPhrase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-matcher.matching is a iterable which return a MatchedPhrase instance,
-the instance has the following attributes: - normalize pattern form:
-matched\_pattern - surface form: surface\_form - start position and end
-position: start\_pos, end\_pos - code\_id and code\_description (None if
-not set in the pattern file) - left context and right context of the
-extracted skills (only availabe if with\_context=True )
+matcher.matching is an iterable which return a MatchedPhrase instance,
+the instance has the following attributes:
+
+- normalize pattern form: matched\_pattern
+
+- surface form: surface\_form
+
+- start position and end position: start\_pos, end\_pos
+
+- code\_id and code\_description (None if not set in the pattern file)
+
+- left context and right context of the matched skills (only availabe if with\_context=True )
+
 
 ::
 
     for match in matcher.matching(text):
-      print("found pattern [{}] in the form of [{}] at position ({}:{}), code:{} {} {}".format(
-         matched.matched_pattern
-         matched.surface_form
-         matched.start_pos
-         matched.end_pos
-         matched.code_id
-         matched.code_description
-         matched.category
-         matched.left_context
-         matched.right_context
-    )
+        print("found pattern [{}] in the form of [{}] at position ({}:{}), code:{} {} {}".format(
+            matched.matched_pattern
+            matched.surface_form
+            matched.start_pos
+            matched.end_pos
+            matched.code_id
+            matched.code_description
+            matched.category
+            matched.left_context
+            matched.right_context
+        )
 
 Development
 -----------
