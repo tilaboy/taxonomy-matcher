@@ -25,7 +25,7 @@ for matched in gz_matcher.matching(text):
     print(matched)
 ```
 
-And an example of the Taxonomy in Json:
+And an example of the Taxonomy in JSON:
 ```
 {
   "meta": {
@@ -52,6 +52,7 @@ And an example of the Taxonomy in Json:
         }
       ]
     },
+    .......
     {
       "display_name": "Mobile Data",
       "category": "Computer Skill",
@@ -118,7 +119,8 @@ dict[code_id] = {
 ```
 
 E.g. to get the description of the codeid:
-```codeid = 12345
+```
+codeid = 12345
 from gz_matcher.matcher import GazetteerMatcher
 gz_matcher = GazetteerMatcher(normtable=json_file)
 if codeid in gz_matcher.code_property_mapping:
