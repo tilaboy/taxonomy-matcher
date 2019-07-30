@@ -7,5 +7,12 @@ python:
 install: pip install -U tox-travis
 script: tox
 deploy:
+  provider: pypi
+  distributions: sdist bdist_wheel
+  user: tilaboy
   password:
     secure: fUXAPHmt0c0OtA000E1NJ925EhofFW0xaNnZcCZdNeBetcDH1kj/YbHx4SFf5HqUmRrUurY7+Wm0duXyrN5P/YMdUpoWW3xSZuf2GeUgQZC++U6Vt8oEf8028p5F1zcE26FQA2B0pONcWAdO+jqWk2+nlyvccOL8DpjbZbqlHChI66kIKCBN1AhKKDjq4P5sFkjxpHc4F07dLgn/TABX5pS/onSVuW1R/07dLSkd4N3PTvuJvCZ8FIcsyHc+BMG1BuUdd0f7ecZRotgqy1JSe+3J/vtVEYd0AYSfN/AlzIznm+1CaN0GKJFWUA2BW5obgMKnZUZtN07C5MgPCHWPe+nROv1ocDBJvNxf5T0oYrZXsOr3NkeioKKr4MSkFqoe2eobzzYcXhPNt0cgVi1zrlHcXiu272Ig0pJNlieNaqZzSqAElz1LsUlu1R516FYIrc0qKEkxuEjct5xpBCR1M5zY/NBPghMlYtdcsjnNj3/0Xf3epIO4MoISxJRAd02Fa7Nc/M5QKt8Rxl20akThcZrvHbFDgz4QtjRL0RaO+Y1YWMFv9J2h3hHrBuA1O6gkg+PbxpQ6GLXqGcTV9WMgi3SKNJy+VVS+/e2F4BY98CAOfc2BlCG1aFCn9oAbp6LJWPC/86xjFbHql14iE9+Egk/BKkLiTL5XLODXb8bxbKQ=
+  on:
+    tags: true
+    repo: tilaboy/gz_matcher
+    python: 3.6
