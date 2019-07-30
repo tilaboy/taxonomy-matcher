@@ -4,10 +4,10 @@ from setuptools import setup, find_packages
 NAME = "gz_matcher"
 VERSION = os.environ.get("GZ_MATCHER_VERSION", "0.0.1")
 
-with open("README.rst", "r") as fh:
-    readme = fh.read()
+with open('README.rst', "r") as readme_file:
+    readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
+with open('HISTORY.rst', "r") as history_file:
     history = history_file.read()
 
 setup_requirements = ['pytest-runner', ]
@@ -33,7 +33,6 @@ setup(
         'Programming Language :: Python :: 3.7',
     ],
     long_description=readme + '\n\n' + history,
-    long_description_content_type="text/rst",
     test_suite="tests",
     setup_requires=setup_requirements,
     tests_require=test_requirements,
@@ -41,11 +40,6 @@ setup(
         "gz_matcher",
         "gz_matcher.match_patterns"
     ],
-    options={
-        "build_scripts": {
-            "executable": "/usr/bin/env python",
-        },
-    },
     license="MIT license",
     zip_safe=False
 )
