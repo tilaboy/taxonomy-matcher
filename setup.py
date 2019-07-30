@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 NAME = "gz_matcher"
-VERSION = os.environ.get("GZ_MATCHER_VERSION", "0.0.1")
+VERSION = os.environ.get("GZ_MATCHER_VERSION", "version='0.0.2'")
 
 with open('README.rst', "r") as readme_file:
     readme = readme_file.read()
