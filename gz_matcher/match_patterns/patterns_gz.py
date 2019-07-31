@@ -1,5 +1,5 @@
 '''MatchPatters: module to load GZ/CT/NT to the tokenized patterns'''
-from gz_matcher.data_utils import has_content
+from taxonomy_matcher.data_utils import has_content
 from .patterns import Patterns
 from .patterns import PatternTypes
 

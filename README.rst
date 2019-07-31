@@ -22,9 +22,9 @@ Use gazetteer-matcher module
 
 ::
 
-   from gz_matcher.matcher import GazetteerMatcher
-   gz_matcher = GazetteerMatcher(normtable=json_file)
-   for matched in gz_matcher.matching(text):
+   from taxonomy_matcher.matcher import GazetteerMatcher
+   taxonomy_matcher = GazetteerMatcher(normtable=json_file)
+   for matched in taxonomy_matcher.matching(text):
        print(matched)
 
 And an example of the normalization table in JSON:
@@ -74,9 +74,9 @@ And an example of the normalization table in JSON:
 
 ::
 
-   from gz_matcher.matcher import GazetteerMatcher
-   gz_matcher = GazetteerMatcher(gazetteer=gz_file)
-   for matched in gz_matcher.matching(text):
+   from taxonomy_matcher.matcher import GazetteerMatcher
+   taxonomy_matcher = GazetteerMatcher(gazetteer=gz_file)
+   for matched in taxonomy_matcher.matching(text):
        print(matched)
 
 and an example of the gazetteer
@@ -94,7 +94,7 @@ and an example of the gazetteer
 
 ::
 
-   from gz_matcher.matcher import GazetteerMatcher
+   from taxonomy_matcher.matcher import GazetteerMatcher
    ct_matcher = GazetteerMatcher(codetable=ct_file)
    for matched in ct_matcher.matching(text):
        print(matched)
@@ -111,9 +111,9 @@ validation functions, enable the ``with\_context`` option:
 
 ::
 
-   from gz_matcher.matcher import GazetteerMatcher
-   gz_matcher = GazetteerMatcher(normtable=json_file,with_context=True)
-   for matched in gz_matcher.matching(text):
+   from taxonomy_matcher.matcher import GazetteerMatcher
+   taxonomy_matcher = GazetteerMatcher(normtable=json_file,with_context=True)
+   for matched in taxonomy_matcher.matching(text):
        print(matched.left_context, matched.right_context)
 
 -  Code Property lookup
@@ -135,10 +135,10 @@ E.g. to get the description of the codeid:
 ::
 
     codeid = 12345
-    from gz_matcher.matcher import GazetteerMatcher
-    gz_matcher = GazetteerMatcher(normtable=json_file)
-    if codeid in gz_matcher.code_property_mapping:
-        print(gz_matcher.code_property_mapping[codeid]['desc'])
+    from taxonomy_matcher.matcher import GazetteerMatcher
+    taxonomy_matcher = GazetteerMatcher(normtable=json_file)
+    if codeid in taxonomy_matcher.code_property_mapping:
+        print(taxonomy_matcher.code_property_mapping[codeid]['desc'])
 
 
 check the Metainfo of the Taxonomy or Gazetteer:
@@ -162,9 +162,9 @@ We can fetch it via the matcher object
 
 ::
 
-    from gz_matcher.matcher import GazetteerMatcher
-    gz_matcher = GazetteerMatcher(normtable=json_file)
-    print(gz_matcher['meta_info'])
+    from taxonomy_matcher.matcher import GazetteerMatcher
+    taxonomy_matcher = GazetteerMatcher(normtable=json_file)
+    print(taxonomy_matcher['meta_info'])
 
 output will be:
 

@@ -1,14 +1,14 @@
 """unit tests to load data from different data resource"""
 from unittest import TestCase
-from gz_matcher.matcher import GazetteerMatcher
+from taxonomy_matcher.matcher import GazetteerMatcher
 
 class TrieMatcherTestCases(TestCase):
     def setUp(self):
         self.gz_file = 'tests/resource/gazetteer.txt'
 
     def test_build_from_gz(self):
-        gz_matcher = GazetteerMatcher(gazetteer=self.gz_file)
-        self.assertEqual(gz_matcher.trie_matcher.token_trie,
+        taxonomy_matcher = GazetteerMatcher(gazetteer=self.gz_file)
+        self.assertEqual(taxonomy_matcher.trie_matcher.token_trie,
             {
             'abc': {'def': {'fed': {
             'xxENDxx': None}}},
@@ -25,13 +25,13 @@ class TrieMatcherTestCases(TestCase):
 
 
     def test_gz_trie_match(self):
-        gz_matcher = GazetteerMatcher(gazetteer=self.gz_file)
+        taxonomy_matcher = GazetteerMatcher(gazetteer=self.gz_file)
         text = 'ab Foo bar Foo foo chao foo\nBar    foo bar foo foo'
 
         self.assertEqual(
             [
                 (match.surface_form, match.start_pos, match.end_pos)
-                for match in list(gz_matcher.matching(text))
+                for match in list(taxonomy_matcher.matching(text))
             ],
             [
                 ('Foo bar Foo', 3, 13),
@@ -45,7 +45,7 @@ class TrieMatcherTestCases(TestCase):
         self.assertEqual(
             [
                 (match.surface_form, match.start_pos, match.end_pos)
-                for match in list(gz_matcher.matching(text))
+                for match in list(taxonomy_matcher.matching(text))
             ],
             [
                 ('foo\nBar', 15, 21),

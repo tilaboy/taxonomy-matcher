@@ -1,7 +1,7 @@
 '''MatchPatters: basic modules for tokenized patterns'''
 import os
-from gz_matcher.data_utils import normalize
-from gz_matcher.token_position import TokenizedPattern
+from taxonomy_matcher.data_utils import normalize
+from taxonomy_matcher.token_position import TokenizedPattern
 
 
 class Patterns():

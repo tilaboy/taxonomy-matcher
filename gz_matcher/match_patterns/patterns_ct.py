@@ -1,6 +1,6 @@
 '''MatchPatters: module to load GZ/CT/NT to the tokenized patterns'''
 import xml.etree.ElementTree as ET
-from gz_matcher.data_utils import fetch_node_text
+from taxonomy_matcher.data_utils import fetch_node_text
 from .patterns import Patterns
 from .patterns import PatternTypes
 

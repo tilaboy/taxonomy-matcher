@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = gz_matcher
+SPHINXPROJ    = taxonomy_matcher
 SOURCEDIR     = .
 BUILDDIR      = _build
 

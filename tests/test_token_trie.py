@@ -1,10 +1,10 @@
 """unit tests to load data from different data resource"""
 from unittest import TestCase
-from gz_matcher.token_trie import TokenTrie
-from gz_matcher.tokenizer import Tokenizer
-from gz_matcher.token_position import TokenizedPattern, TokenizedMatch
-from gz_matcher.data_utils import normalize
-from gz_matcher.match_patterns.patterns_gz import PatternsGZ
+from taxonomy_matcher.token_trie import TokenTrie
+from taxonomy_matcher.tokenizer import Tokenizer
+from taxonomy_matcher.token_position import TokenizedPattern, TokenizedMatch
+from taxonomy_matcher.data_utils import normalize
+from taxonomy_matcher.match_patterns.patterns_gz import PatternsGZ
 
 
 class TokenTrieTestCases(TestCase):

@@ -1,7 +1,7 @@
 from unittest import TestCase
 import tempfile
 import pathlib
-from gz_matcher.matcher import GazetteerMatcher
+from taxonomy_matcher.matcher import GazetteerMatcher
 
 class ParticalMatcherTestCases(TestCase):
     def setUp(self):

@@ -1,7 +1,7 @@
 """unit tests to load data from different data resource"""
 import json
 from unittest import TestCase
-from gz_matcher.matcher import GazetteerMatcher
+from taxonomy_matcher.matcher import GazetteerMatcher
 
 class TrieMatcherTestCases(TestCase):
     def setUp(self):

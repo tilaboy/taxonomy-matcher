@@ -1,8 +1,8 @@
 import os
 from setuptools import setup, find_packages
 
-NAME = "gz_matcher"
-VERSION = os.environ.get("GZ_MATCHER_VERSION", "version='0.0.3'")
+NAME = "taxonomy_matcher"
+VERSION = os.environ.get("TAXONOMY_MATCHER_VERSION", "version='0.0.3'")
 
 with open('README.rst', "r") as readme_file:
     readme = readme_file.read()
@@ -37,8 +37,8 @@ setup(
     setup_requires=setup_requirements,
     tests_require=test_requirements,
     packages=[
-        "gz_matcher",
-        "gz_matcher.match_patterns"
+        "taxonomy_matcher",
+        "taxonomy_matcher.match_patterns"
     ],
     license="MIT license",
     zip_safe=False
