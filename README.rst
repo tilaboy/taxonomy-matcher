@@ -1,10 +1,10 @@
-gazetteer-matcher
+taxonomy-matcher
 =================
 
 Description
 -----------
 
-Given a gazetteer/taxonomy and some input text, ``gz-matcher`` can
+Given a gazetteer/taxonomy and some input text, ``taxonomy-matcher`` can
 be used to find all matched phrases.
 
 Requirements
@@ -15,7 +15,7 @@ Python 3.6+
 Usage
 -----
 
-Use gazetteer-matcher module
+Use taxonomy-matcher module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  From normalization table in JSOM format:
