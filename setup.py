@@ -39,6 +39,11 @@ setup(
         "taxonomy_matcher",
         "taxonomy_matcher.match_patterns"
     ],
+    entry_points={
+        "console_scripts": [
+            "taxonomy-match=taxonomy_matcher.__main__:main",
+        ],
+    },
     license="MIT license",
     zip_safe=False
 )
