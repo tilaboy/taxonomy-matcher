@@ -31,6 +31,26 @@ Python 3.6+
 Usage
 -----
 
+Use taxonomy-match script:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    usage: taxonomy-match input_file
+                          (--json_tax JSON_TAX | --xml_tax XML_TAX | --gz_tax GZ_TAX)
+
+
+    find matched phrases from input text
+
+    positional arguments:
+      input_file           input text file
+
+    optional arguments:
+      --json_tax JSON_TAX  normalization taxonomy in json form
+      --xml_tax XML_TAX    taxonomy in xml form
+      --gz_tax GZ_TAX      a list of keywords in txt form
+
+
 Use taxonomy-matcher module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
