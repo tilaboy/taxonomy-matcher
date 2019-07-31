@@ -1,14 +1,14 @@
 """unit tests to load data from different data resource"""
 import json
 from unittest import TestCase
-from taxonomy_matcher.matcher import GazetteerMatcher
+from taxonomy_matcher.matcher import Matcher
 
 class TrieMatcherTestCases(TestCase):
     def setUp(self):
         self.ct_file = 'tests/resource/test_codetable.xml'
 
     def test_build_from_ct(self):
-        ct_matcher = GazetteerMatcher(codetable=self.ct_file)
+        ct_matcher = Matcher(codetable=self.ct_file)
         self.assertEqual(ct_matcher.trie_matcher.token_trie,
         {
             "female": {"xxENDxx": "2",
@@ -24,7 +24,7 @@ class TrieMatcherTestCases(TestCase):
 
 
     def test_ct_trie_match(self):
-        ct_matcher = GazetteerMatcher(codetable=self.ct_file)
+        ct_matcher = Matcher(codetable=self.ct_file)
         text = 'ab female bar male/homm foo before female\n     now male foo'
 
         self.assertEqual(

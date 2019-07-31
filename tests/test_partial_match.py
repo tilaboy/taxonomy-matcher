@@ -1,7 +1,7 @@
 from unittest import TestCase
 import tempfile
 import pathlib
-from taxonomy_matcher.matcher import GazetteerMatcher
+from taxonomy_matcher.matcher import Matcher
 
 class ParticalMatcherTestCases(TestCase):
     def setUp(self):
@@ -14,7 +14,7 @@ foo bar'''
 
 
     def test_partial_trie_match_braket(self):
-        self.matcher = GazetteerMatcher(gazetteer=self.gz_file.name)
+        self.matcher = Matcher(gazetteer=self.gz_file.name)
         text = "November 1954 Place of Birth : Rotterdam Holland Passport : \
   dutch (Current) Domiciled in NZ : 47 years"
         self.assertEqual(
@@ -28,7 +28,7 @@ foo bar'''
         )
 
     def test_partial_trie_match_doc_end(self):
-        self.matcher = GazetteerMatcher(gazetteer=self.gz_file.name)
+        self.matcher = Matcher(gazetteer=self.gz_file.name)
         text = '''
 
 foo bar

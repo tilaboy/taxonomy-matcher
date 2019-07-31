@@ -1,7 +1,7 @@
 # -*coding: utf-8 -*-
 from unittest import TestCase
 from taxonomy_matcher.tokenizer import Tokenizer
-from taxonomy_matcher.matcher import GazetteerMatcher
+from taxonomy_matcher.matcher import Matcher
 
 class TokenizerTestCases(TestCase):
     def setUp(self):

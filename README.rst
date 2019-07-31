@@ -22,8 +22,8 @@ Use gazetteer-matcher module
 
 ::
 
-   from taxonomy_matcher.matcher import GazetteerMatcher
-   taxonomy_matcher = GazetteerMatcher(normtable=json_file)
+   from taxonomy_matcher.matcher import Matcher
+   taxonomy_matcher = Matcher(normtable=json_file)
    for matched in taxonomy_matcher.matching(text):
        print(matched)
 
@@ -74,8 +74,8 @@ And an example of the normalization table in JSON:
 
 ::
 
-   from taxonomy_matcher.matcher import GazetteerMatcher
-   taxonomy_matcher = GazetteerMatcher(gazetteer=gz_file)
+   from taxonomy_matcher.matcher import Matcher
+   taxonomy_matcher = Matcher(gazetteer=gz_file)
    for matched in taxonomy_matcher.matching(text):
        print(matched)
 
@@ -94,8 +94,8 @@ and an example of the gazetteer
 
 ::
 
-   from taxonomy_matcher.matcher import GazetteerMatcher
-   ct_matcher = GazetteerMatcher(codetable=ct_file)
+   from taxonomy_matcher.matcher import Matcher
+   ct_matcher = Matcher(codetable=ct_file)
    for matched in ct_matcher.matching(text):
        print(matched)
 
@@ -111,8 +111,8 @@ validation functions, enable the ``with\_context`` option:
 
 ::
 
-   from taxonomy_matcher.matcher import GazetteerMatcher
-   taxonomy_matcher = GazetteerMatcher(normtable=json_file,with_context=True)
+   from taxonomy_matcher.matcher import Matcher
+   taxonomy_matcher = Matcher(normtable=json_file,with_context=True)
    for matched in taxonomy_matcher.matching(text):
        print(matched.left_context, matched.right_context)
 
@@ -135,8 +135,8 @@ E.g. to get the description of the codeid:
 ::
 
     codeid = 12345
-    from taxonomy_matcher.matcher import GazetteerMatcher
-    taxonomy_matcher = GazetteerMatcher(normtable=json_file)
+    from taxonomy_matcher.matcher import Matcher
+    taxonomy_matcher = Matcher(normtable=json_file)
     if codeid in taxonomy_matcher.code_property_mapping:
         print(taxonomy_matcher.code_property_mapping[codeid]['desc'])
 
@@ -162,8 +162,8 @@ We can fetch it via the matcher object
 
 ::
 
-    from taxonomy_matcher.matcher import GazetteerMatcher
-    taxonomy_matcher = GazetteerMatcher(normtable=json_file)
+    from taxonomy_matcher.matcher import Matcher
+    taxonomy_matcher = Matcher(normtable=json_file)
     print(taxonomy_matcher['meta_info'])
 
 output will be:

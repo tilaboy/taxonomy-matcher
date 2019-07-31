@@ -1,14 +1,14 @@
 """unit tests to load data from different data resource"""
 import json
 from unittest import TestCase
-from taxonomy_matcher.matcher import GazetteerMatcher
+from taxonomy_matcher.matcher import Matcher
 
 class TrieMatcherTestCases(TestCase):
     def setUp(self):
         self.nt_file = 'tests/resource/test_normalized_table.json'
 
     def test_build_from_nt(self):
-        nt_matcher = GazetteerMatcher(normtable=self.nt_file)
+        nt_matcher = Matcher(normtable=self.nt_file)
         self.assertEqual(nt_matcher.trie_matcher.token_trie,
         {'linked':
             {'server':
@@ -55,7 +55,7 @@ class TrieMatcherTestCases(TestCase):
 
 
     def test_nt_trie_match(self):
-        nt_matcher = GazetteerMatcher(normtable=self.nt_file)
+        nt_matcher = Matcher(normtable=self.nt_file)
         text = '''A build script is required to do the UI programming or so
 called user interface programming, the whole process can be managed by applying
 Oracle agile product lifecycle management with the help of Orale Apache Mahout

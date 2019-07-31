@@ -10,9 +10,9 @@ from .matched_phrase import MatchedPhrase
 from . import data_utils
 
 
-class GazetteerMatcher():
+class Matcher():
     '''
-    GazetteerMatcher finds all matched phrases from the input text. It contains
+    Matcher finds all matched phrases from the input text. It contains
         - an internal tokenizer applied on both patterns and input text
         - a token trie structure created eithor from gazetteer or codetable
         - a dictionary to map codeID to code_description and code_category
@@ -51,7 +51,7 @@ class GazetteerMatcher():
             match_patterns = PatternsCT(self.tokenizer, codetable)
         else:
             raise Exception('source file is required to build a \
-            GazetteerMatcher object')
+            Matcher object')
 
         self.code_property_mapping = match_patterns.codeid_description
         self.meta_info = match_patterns.meta_info
