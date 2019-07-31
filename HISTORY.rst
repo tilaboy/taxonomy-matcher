@@ -1,9 +1,19 @@
+0.0.7 (2019-07-30)
+==================
+
+Add a script ``taxonomy-match`` to find all matches from input_text, with a
+given taxonomy
+
+0.0.6 (2019-07-30)
+==================
+
+test the travis-ci
+
+
 0.0.5 (2019-07-30)
 ==================
 
-added script ``taxonomy-match``, which find all matches given the taxonomy
-and the input text file.
-
+test the travis-ci
 
 
 0.0.4 (2019-07-30)
