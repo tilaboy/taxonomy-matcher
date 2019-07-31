@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Top-level package for gz-matcher
+Top-level package for taxonomy-matcher
 """
 
 __author__ = """Chao Li"""

@@ -7,6 +7,22 @@ Description
 Given a gazetteer/taxonomy and some input text, ``taxonomy-matcher`` can
 be used to find all matched phrases.
 
+
+CI Status
+-----------
+
+.. image:: https://travis-ci.org/tilaboy/taxonomy-matcher.svg?branch=master
+    :target: https://travis-ci.org/tilaboy/taxonomy-matcher
+
+.. image:: https://pyup.io/repos/github/tilaboy/taxonomy-matcher/shield.svg
+    :target: https://pyup.io/repos/github/tilaboy/taxonomy-matcher/
+    :alt: Updates
+
+.. image:: https://readthedocs.org/projects/gazetteer-matcher/badge/?version=latest
+    :target: https://gazetteer-matcher.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+
 Requirements
 ------------
 
