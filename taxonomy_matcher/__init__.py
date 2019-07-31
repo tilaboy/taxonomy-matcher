@@ -7,7 +7,7 @@ import logging
 
 __author__ = """Chao Li"""
 __email__ = 'chaoli.job@google.com'
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 name = "taxonomy_matcher"
 
 
