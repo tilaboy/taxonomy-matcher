@@ -1,7 +1,7 @@
 # -*coding: utf-8 -*-
 from unittest import TestCase
 from taxonomy_matcher.tokenizer import Tokenizer
-from taxonomy_matcher.matcher import Matcher
+
 
 class TokenizerTestCases(TestCase):
     def setUp(self):
@@ -25,7 +25,6 @@ class TokenizerTestCases(TestCase):
             self.tokenizer.tokenize(text),
             ['this', 'is', 'a', 'normal_sentence']
         )
-
 
     def test_char_with_hat(self):
         text = 'Alp NADİ\nCoordination potential bidders.'

@@ -3,6 +3,7 @@ import tempfile
 import pathlib
 from taxonomy_matcher.matcher import Matcher
 
+
 class ParticalMatcherTestCases(TestCase):
     def setUp(self):
         gz_content = '''dutch
@@ -11,7 +12,6 @@ foo bar'''
         self.gz_file = tempfile.NamedTemporaryFile(mode='w', delete=False)
         with self.gz_file as f:
             f.write(gz_content)
-
 
     def test_partial_trie_match_braket(self):
         self.matcher = Matcher(gazetteer=self.gz_file.name)

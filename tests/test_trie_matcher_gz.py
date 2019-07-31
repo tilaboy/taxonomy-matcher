@@ -2,6 +2,7 @@
 from unittest import TestCase
 from taxonomy_matcher.matcher import Matcher
 
+
 class TrieMatcherTestCases(TestCase):
     def setUp(self):
         self.gz_file = 'tests/resource/gazetteer.txt'
@@ -9,20 +10,14 @@ class TrieMatcherTestCases(TestCase):
     def test_build_from_gz(self):
         taxonomy_matcher = Matcher(gazetteer=self.gz_file)
         self.assertEqual(taxonomy_matcher.trie_matcher.token_trie,
-            {
-            'abc': {'def': {'fed': {
-            'xxENDxx': None}}},
-            'bar': {'foo': {'foo': {
-            'xxENDxx': None}}},
-            'chao': {'xxENDxx': None},
-            'foo': {'bar': {'foo': {
-            'xxENDxx': None},
-            'xxENDxx': None}},
-            'new': {'foo': {
-            'xxENDxx': None}},
-            'old': {'foo': {
-            'xxENDxx': None}}})
-
+                         {
+                          'abc': {'def': {'fed': {'xxENDxx': None}}},
+                          'bar': {'foo': {'foo': {'xxENDxx': None}}},
+                          'chao': {'xxENDxx': None},
+                          'foo': {'bar': {'foo': {'xxENDxx': None},
+                                          'xxENDxx': None}},
+                          'new': {'foo': {'xxENDxx': None}},
+                          'old': {'foo': {'xxENDxx': None}}})
 
     def test_gz_trie_match(self):
         taxonomy_matcher = Matcher(gazetteer=self.gz_file)

@@ -1,7 +1,7 @@
 """unit tests to load data from different data resource"""
-import json
 from unittest import TestCase
 from taxonomy_matcher.matcher import Matcher
+
 
 class TrieMatcherTestCases(TestCase):
     def setUp(self):
@@ -10,18 +10,20 @@ class TrieMatcherTestCases(TestCase):
     def test_build_from_ct(self):
         ct_matcher = Matcher(codetable=self.ct_file)
         self.assertEqual(ct_matcher.trie_matcher.token_trie,
-        {
-            "female": {"xxENDxx": "2",
-            "or": {"vrouw": {"xxENDxx": "2"}},
-            "/": {"femme": {"xxENDxx": "2"}}},
-            "male": {"xxENDxx": "1",
-            "or": {"man": {"xxENDxx": "1"}},
-            "/": {"homm": {"xxENDxx":"1"}}},
-            "transgender": {"xxENDxx": "3"},
-            "before": {"male": {"now": {"female": {"xxENDxx": "3"}}},
-            "female": {"now": {"male": {"xxENDxx": "3"}}}}
-        })
-
+                         {
+                          "female": {"xxENDxx": "2",
+                                     "or": {"vrouw": {"xxENDxx": "2"}},
+                                     "/": {"femme": {"xxENDxx": "2"}}},
+                          "male": {"xxENDxx": "1",
+                                   "or": {"man": {"xxENDxx": "1"}},
+                                   "/": {"homm": {"xxENDxx": "1"}}},
+                          "transgender": {"xxENDxx": "3"},
+                          "before": {"male":
+                                     {"now": {"female": {"xxENDxx": "3"}}},
+                                     "female":
+                                     {"now": {"male": {"xxENDxx": "3"}}}}
+                          }
+                         )
 
     def test_ct_trie_match(self):
         ct_matcher = Matcher(codetable=self.ct_file)
