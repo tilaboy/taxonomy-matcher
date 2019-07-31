@@ -17,9 +17,9 @@ test_requirements = ['pytest', ]
 setup(
     name=NAME,
     version=VERSION,
-    keywords='gz-matcher',
-    url='https://github.com/tilaboy/gazetteer-matcher',
-    description="Python tool to match phrases listed in the gazetteer",
+    keywords='taxonomy-matcher',
+    url='https://github.com/tilaboy/taxonomy-matcher',
+    description="Python tool to match phrases listed in the taxonomy",
     author="Chao Li",
     author_email="chaoli.job@gmail.com",
     classifiers=[
