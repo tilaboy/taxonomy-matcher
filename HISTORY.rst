@@ -1,3 +1,10 @@
+0.0.8 (2019-08-05)
+==================
+
+Add option "output to file" to ``taxonomy-match`` script,
+support jsonl/csv/tsv/txt, and STDOUT
+
+
 0.0.7 (2019-07-30)
 ==================
 
