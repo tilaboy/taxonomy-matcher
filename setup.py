@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 NAME = "taxonomy_matcher"
-VERSION = os.environ.get("TAXONOMY_MATCHER_VERSION", '0.0.7')
+VERSION = os.environ.get("TAXONOMY_MATCHER_VERSION", '0.0.8')
 
 with open('README.rst', "r") as readme_file:
     readme = readme_file.read()
