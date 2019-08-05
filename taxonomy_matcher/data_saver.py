@@ -14,7 +14,7 @@ class DataSaver:
     """
 
     def __init__(self, output_file):
-        if output_file is 'STDOUT':
+        if output_file == 'STDOUT':
             self.format = output_file
             self.ostream = sys.stdout
         else:
