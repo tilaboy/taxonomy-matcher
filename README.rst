@@ -4,8 +4,19 @@ taxonomy-matcher
 Description
 -----------
 
-Given a gazetteer/taxonomy and some input text, ``taxonomy-matcher`` can
-be used to find all matched phrases.
+Given a gazetteer/taxonomy and input text, ``taxonomy-matcher`` can
+be used to find all phrases which matches the codes/instances/keywords in the
+gazetteer or taxonomy.
+
+For each match, it will return the information of,
+
+  - surface_form
+
+  - matched position
+
+  - Code ID and Code Description
+
+  - and other code related information
 
 
 CI Status
@@ -36,19 +47,22 @@ Use taxonomy-match script:
 
 ::
 
-    usage: taxonomy-match input_file
-                          (--json_tax JSON_TAX | --xml_tax XML_TAX | --gz_tax GZ_TAX)
+    usage: taxonomy-match input_file taxonomy_file [--output_file OUTPUT_FILE]
 
 
-    find matched phrases from input text
+    load taxonomy phrases from the taxonomy file, and find all matched phrases
+    from the input text. The result will eithor write to an output file or print
+    to the screen.
 
     positional arguments:
-      input_file           input text file
+      input_file            input text file, text to mine phrases
+      taxonomy_file         taxonomy file, support json/xml/txt, see documentation
+                            for more details
 
     optional arguments:
-      --json_tax JSON_TAX  normalization taxonomy in json form
-      --xml_tax XML_TAX    taxonomy in xml form
-      --gz_tax GZ_TAX      a list of keywords in txt form
+      --output_file         output file of matched phrases, supports
+                            jsonl/csv/tsv/txt format, print matched phrases to
+                            the screen if not defined
 
 
 Use taxonomy-matcher module
