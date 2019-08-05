@@ -1,45 +1,89 @@
 '''
 taxonomy_match: script to load a taxonomy, and find all matches from input
 '''
-
+import os.path
 from argparse import ArgumentParser
 from .matcher import Matcher
 from . import LOGGER
+from .data_saver import DataSaver
 
 
 def get_args():
     '''get arguments'''
-    parser = ArgumentParser(description='find matched phrases from input text')
+    parser = ArgumentParser(description='''
+                            load taxonomy phrases from the taxonomy file, and
+                            find all matched phrases from the input text. The
+                            result will eithor write to an output file or print
+                            to the screen.
+                            ''')
 
-    parser.add_argument('input_file', help='''input text file''', type=str)
+    parser.add_argument('input_file', help='input file with text ', type=str)
 
-    tax_args = parser.add_mutually_exclusive_group(required=True)
+    parser.add_argument('taxonomy_file', help='''
+                        taxonomy file, support json/xml/txt, see documentation
+                        for more details
+                        ''', type=str)
 
-    tax_args.add_argument('--json_tax',
-                          help='normalization taxonomy in json form',
-                          type=str, default='')
-
-    tax_args.add_argument('--xml_tax', help='taxonomy in xml form',
-                          type=str, default='')
-    tax_args.add_argument('--gz_tax', help='a list of keywords in txt form',
-                          type=str, default='')
+    parser.add_argument('--output_file', help='''
+                        output file of matched phrases, supports
+                        jsonl/csv/tsv/txt format''',
+                        type=str, default='STDOUT')
 
     return parser.parse_args()
 
 
+def _init_matcher_obj(taxonomy_file):
+    if not os.path.isfile(taxonomy_file):
+        raise FileNotFoundError("Taxonomy file not found")
+
+    _, extension = os.path.splitext(taxonomy_file)
+
+    if extension == '.jsonl':
+        taxonomy_matcher = Matcher(normtable=taxonomy_file)
+    elif extension == '.xml':
+        taxonomy_matcher = Matcher(codetable=taxonomy_file)
+    elif extension == '.txt':
+        taxonomy_matcher = Matcher(gazetteer=taxonomy_file)
+    else:
+        raise ValueError("Only support taxonomy in json/xml/txt")
+
+    return taxonomy_matcher
+
+
 def main():
-    '''apply selectors to xml files'''
+    '''
+    taxonomy-match
+
+    params:
+
+    - input_file: text document to extract keywords
+
+    - taxonomy_file: taxonomy contains keywords
+
+    output: output_file
+    '''
     args = get_args()
 
+    LOGGER.info('Loading text file')
     with open(args.input_file, "r", encoding="utf-8") as input_f:
         input_text = input_f.read()
 
-    if args.json_tax:
-        taxonomy_matcher = Matcher(normtable=args.json_tax)
-    elif args.xml_tax:
-        taxonomy_matcher = Matcher(codetable=args.xml_tax)
-    elif args.gz_tax:
-        taxonomy_matcher = Matcher(gazetteer=args.gz_tax)
+    LOGGER.info('Loading the Taxonomy ...')
+    taxonomy_matcher = _init_matcher_obj(args.taxonomy_file)
+    writer = DataSaver(args.output_file)
 
+    nr_matches = 0
     for matched in taxonomy_matcher.matching(input_text):
-        LOGGER.info(matched)
+        if writer.format == '.csv' or writer.format == '.tsv':
+            if nr_matches == 0:
+                writer.store(matched._to_dict().keys())
+            writer.store(matched._to_list())
+
+        elif writer.format == '.jsonl':
+            writer.store(matched._to_dict())
+        else:
+            writer.store(matched)
+
+        nr_matches += 1
+
+    LOGGER.info('found %i matched phrases', nr_matches)

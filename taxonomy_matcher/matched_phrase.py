@@ -44,14 +44,14 @@ class MatchedPhrase:
         self.skill_likelihood = skill_likelihood
 
     def __repr__(self):
-        return '''found:
-        skill: {}
-        surface_form: {}
-        range: [{}:{}]
-        codeid:{}
-        description: {}
-        category: {}
-        skill likelihood: {}'''.format(
+        return '''
+        skill: {},
+        surface_form: {},
+        range: [{}:{}],
+        codeid:{},
+        description: {},
+        category: {},
+        skill likelihood: {}\n'''.format(
             self.matched_pattern,
             self.surface_form,
             self.start_pos,
@@ -61,3 +61,31 @@ class MatchedPhrase:
             self.category,
             self.skill_likelihood
         )
+
+    def _to_dict(self):
+        return {
+            'matched_pattern': self.matched_pattern,
+            'surface_form': self.surface_form,
+            'start_pos': self.start_pos,
+            'end_pos': self.end_pos,
+            'code_id': self.code_id,
+            'code_description': self.code_description,
+            'categroty': self.category,
+            'left_context': self.left_context,
+            'right_context': self.right_context,
+            'skill_likelihood': self.skill_likelihood
+        }
+
+    def _to_list(self):
+        return [
+            self.matched_pattern,
+            self.surface_form,
+            self.start_pos,
+            self.end_pos,
+            self.code_id,
+            self.code_description,
+            self.category,
+            self.left_context,
+            self.right_context,
+            self.skill_likelihood
+        ]
