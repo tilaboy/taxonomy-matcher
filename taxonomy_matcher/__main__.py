@@ -38,7 +38,7 @@ def _init_matcher_obj(taxonomy_file):
 
     _, extension = os.path.splitext(taxonomy_file)
 
-    if extension == '.jsonl':
+    if extension == '.json':
         taxonomy_matcher = Matcher(normtable=taxonomy_file)
     elif extension == '.xml':
         taxonomy_matcher = Matcher(codetable=taxonomy_file)
