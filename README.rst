@@ -19,21 +19,6 @@ For each match, it will return the information of,
   - and other code related information
 
 
-CI Status
------------
-
-.. image:: https://travis-ci.org/tilaboy/taxonomy-matcher.svg?branch=master
-    :target: https://travis-ci.org/tilaboy/taxonomy-matcher
-
-.. image:: https://pyup.io/repos/github/tilaboy/taxonomy-matcher/shield.svg
-    :target: https://pyup.io/repos/github/tilaboy/taxonomy-matcher/
-    :alt: Updates
-
-.. image:: https://readthedocs.org/projects/gazetteer-matcher/badge/?version=latest
-    :target: https://gazetteer-matcher.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
-
-
 Requirements
 ------------
 
