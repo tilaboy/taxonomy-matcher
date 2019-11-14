@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeTable>
+	<CodeTableInfo>
+		<InfoItem name="codeproperties_langs">DE-DK-EN-ES-FR-IT-NL</InfoItem>
+		<InfoItem name="iso_added">5218</InfoItem>
+		<InfoItem name="langlabels_instances">DE-DK-EN-ES-FR-IT-NL</InfoItem>
+	</CodeTableInfo>
+	<CodeRecordList>
+		<CodeRecord>
+			<CodeID>2</CodeID>
+			<CodeDescription>Female</CodeDescription>
+			<CodeProperty name="CodeDescription">Female</CodeProperty>
+			<CodeProperty name="ISO-5218">2</CodeProperty>
+			<CodeProperty name="codeid">2</CodeProperty>
+			<CodeProperty name="description.en">Female</CodeProperty>
+			<CodeProperty name="description.fr">Femme</CodeProperty>
+			<CodeProperty name="description.nl">Vrouw</CodeProperty>
+			<InstanceList>
+				<Instance>
+					<InstanceDescription></InstanceDescription>
+				</Instance>
+				<Instance>
+					<InstanceDescription>female or vrouw</InstanceDescription>
+				</Instance>
+				<Instance>
+					<InstanceDescription>Female/Femme</InstanceDescription>
+				</Instance>
+			</InstanceList>
+		</CodeRecord>
+	</CodeRecordList>
+</CodeTable>

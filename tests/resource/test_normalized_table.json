@@ -68,7 +68,7 @@
           "skill_likelihood": 0.5
         },
         {
-          "surface_form": "mahout",
+          "surface_form": "Mahout",
           "skill_likelihood": 0.5
         },
         {
@@ -76,6 +76,33 @@
           "skill_likelihood": 0.5
         }
       ]
+    },
+    {
+      "display_name": "Mathématiques",
+      "category": "Hard Skill",
+      "id": "KS126706DPFD3354M7YK",
+      "surface_forms": [
+        {
+          "surface_form": "Mathématiques",
+          "skill_likelihood": 1.0
+        },
+        {
+          "surface_form": "mathématiques",
+          "skill_likelihood": 0.4
+        }
+      ]
+    },
+    {
+      "display_name": "C++",
+      "category": "Comp Skill",
+      "id": "KS126706DPFD3354M7Y0",
+      "surface_forms": [
+        {
+          "surface_form": "c++",
+          "skill_likelihood": 0.8
+        }
+      ]
     }
+
   ]
 }

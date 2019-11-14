@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "concept_type": "skills",
+    "purpose": "normalization",
+    "language": "EN",
+    "release_datetime": "2019-05-08T12:30:50.964731"
+  },
+  "concepts": [
+    {
+      "display_name": "Bullet (Software)",
+      "category": "Comp Skill",
+      "id": "KS121806RQPW095FLLFC",
+      "surface_forms": [
+        {
+          "surface_form": ""
+        },
+        {
+          "surface_form": "bullet physics"
+        }
+      ]
+    }
+  ]
+}
