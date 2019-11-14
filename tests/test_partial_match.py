@@ -17,6 +17,7 @@ foo bar'''
         self.matcher = Matcher(gazetteer=self.gz_file.name)
         text = "November 1954 Place of Birth : Rotterdam Holland Passport : \
   dutch (Current) Domiciled in NZ : 47 years"
+
         self.assertEqual(
             [
                 (match.surface_form, match.start_pos, match.end_pos)

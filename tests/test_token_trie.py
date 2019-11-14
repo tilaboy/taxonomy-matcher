@@ -1,7 +1,7 @@
 """unit tests to load data from different data resource"""
 from unittest import TestCase
+from easy_tokenizer.tokenizer import Tokenizer
 from taxonomy_matcher.token_trie import TokenTrie
-from taxonomy_matcher.tokenizer import Tokenizer
 from taxonomy_matcher.token_position import TokenizedPattern
 from taxonomy_matcher.data_utils import normalize
 from taxonomy_matcher.match_patterns.patterns_gz import PatternsGZ
@@ -13,22 +13,23 @@ class TokenTrieTestCases(TestCase):
         self.text = 'ab Foo bar Foo foo chao foo\nBar    foo bar foo foo'
         self.tokenizer = Tokenizer()
 
+
     def test_append_list_to_local_trie(self):
         token_trie = TokenTrie(patterns=None)
         patterns = TokenizedPattern(["a", "b", "c", "d"])
         self.assertEqual(
             token_trie._append_token_list_to_trie(patterns),
-            {'a': {'b': {'c': {'d': {'xxENDxx': None}}}}}
+            {'a': {'b': {'c': {'d': {'xxENDxx': ('', None)}}}}}
         )
         patterns = TokenizedPattern(["a"])
         self.assertEqual(
             token_trie._append_token_list_to_trie(patterns),
-            {'a': {'xxENDxx': None}}
+            {'a': {'xxENDxx':('', None)}}
         )
         patterns = TokenizedPattern([])
         self.assertEqual(
             token_trie._append_token_list_to_trie(patterns),
-            {'xxENDxx': None}
+            {'xxENDxx':('', None)}
         )
 
     def test_build_from_patterns(self):
@@ -38,31 +39,58 @@ class TokenTrieTestCases(TestCase):
                     "bar bar foo",
                     "bar foo foo"]
         tokenzied_patterns = (
-            TokenizedPattern(self.tokenizer.tokenize(normalize(pattern)))
+            TokenizedPattern(self.tokenizer.tokenize(normalize(pattern)), pattern)
             for pattern in patterns
         )
 
         token_trie = TokenTrie(patterns=tokenzied_patterns)
         self.assertEqual(token_trie.token_trie,
-                         {'bar': {'bar': {'foo': {'xxENDxx': None}},
-                                  'foo': {'foo': {'xxENDxx': None}}
-                                  },
-                          'foo': {'bar': {'foo': {'xxENDxx': None},
-                                          'xxENDxx': None},
-                                  'xxENDxx': None}
-                          }
-                         )
+            {'bar':
+                {'bar':
+                    {'foo':
+                        {'xxENDxx': ('bar bar foo', None)}
+                    },
+                 'foo':
+                    {'foo':
+                        {'xxENDxx': ('bar foo foo', None)}
+                    }
+                 },
+             'foo':
+                {'bar':
+                    {'foo':
+                        {'xxENDxx': ('foo bar foo', None)},
+                     'xxENDxx': ('foo bar', None)},
+                 'xxENDxx': ('foo', None)}
+            })
 
     def test_build_from_repeated_pattern(self):
-        patterns = ['b tree', 'b- tree', 'B-tree']
+        patterns = ['b tree', 'b - tree', 'B - tree', 'AS/400', 'as 400']
         tokenzied_patterns = (
-            TokenizedPattern(self.tokenizer.tokenize(normalize(pattern)))
+            TokenizedPattern(self.tokenizer.tokenize(normalize(pattern)), pattern)
             for pattern in patterns
         )
         token_trie = TokenTrie(patterns=tokenzied_patterns)
         self.assertEqual(token_trie.token_trie,
-                         {'b': {'-': {'tree': {'xxENDxx': None}},
-                                'tree': {'xxENDxx': None}}})
+            {'b':
+                {'tree':
+                    {'xxENDxx': ('b tree', None)},
+                 '-':
+                    {'tree':
+                        {'xxENDxx': ('B - tree', None)}
+                    }
+                },
+             'as':
+                {'/':
+                    {'400':
+                        {'xxENDxx': ('AS/400', None)}
+                    },
+                '400':
+                    {'xxENDxx': ('as 400', None)}
+                }
+            }
+        )
+
+
 
     def test_match_at_position(self):
         patterns = PatternsGZ(self.tokenizer, self.gz_file)
@@ -75,7 +103,7 @@ class TokenTrieTestCases(TestCase):
                 for match in (token_trie.match_at_position(
                                 token_trie.token_trie,
                                 tokens[1:])
-                              )
+                             )
             ],
             [['foo', 'bar'], ['foo', 'bar', 'foo']]
         )
@@ -86,7 +114,7 @@ class TokenTrieTestCases(TestCase):
                 for match in (token_trie.match_at_position(
                                 token_trie.token_trie,
                                 tokens[2:])
-                              )
+                             )
             ],
             [['bar', 'foo', 'foo']]
         )
@@ -97,10 +125,11 @@ class TokenTrieTestCases(TestCase):
                 for match in (token_trie.match_at_position(
                                 token_trie.token_trie,
                                 tokens[3:])
-                              )
+                             )
             ],
             []
         )
+
 
     def test_longest_match_at_position(self):
         patterns = PatternsGZ(self.tokenizer, self.gz_file)
