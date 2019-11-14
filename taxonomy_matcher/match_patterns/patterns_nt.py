@@ -51,7 +51,8 @@ class PatternsNT(Patterns):
                 if instance['surface_form']:
                     yield (instance['surface_form'], code_id)
                 else:
-                    LOGGER.error("Empty surface form in instance: '%s'", instance)
+                    LOGGER.error("Empty surface form in instance: '%s'",
+                                 instance)
 
     @staticmethod
     def codeid_description_mapping(codetable_dict):

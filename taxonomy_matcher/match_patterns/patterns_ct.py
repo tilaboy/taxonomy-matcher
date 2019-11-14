@@ -51,7 +51,6 @@ class PatternsCT(Patterns):
                 else:
                     LOGGER.error("Empty instance text: '%s'", instance)
 
-
     @staticmethod
     def codeid_description_mapping(codetable_root):
         '''

@@ -38,20 +38,19 @@ class TokenTrie():
             if pattern.tokens:
                 self._add_tokens_to_trie(sub_trie[token], pattern)
             else:
-                sub_trie[token][self.end_token] = (pattern.surface_form, pattern.code_id)
+                sub_trie[token][self.end_token] = (pattern.surface_form,
+                                                   pattern.code_id)
 
         else:
             local_trie = self._append_token_list_to_trie(pattern)
             sub_trie[token] = local_trie
         return
 
-
     def _append_token_list_to_trie(self, pattern):
-        local_trie = {self.end_token:(pattern.surface_form, pattern.code_id)}
+        local_trie = {self.end_token: (pattern.surface_form, pattern.code_id)}
         for index in range(len(pattern.tokens) - 1, -1, -1):
-            local_trie = {pattern.tokens[index]:local_trie}
+            local_trie = {pattern.tokens[index]: local_trie}
         return local_trie
-
 
     def match_at_position(self, sub_trie, tokens):
         '''

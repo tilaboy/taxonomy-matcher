@@ -21,11 +21,11 @@ class TokenizedPattern:
         self.code_id = code_id
 
     def __repr__(self):
-        return "\ntokens: {}\ncode id: {}]".format( \
-        self.tokens, self.code_id)
+        return "\ntokens: {}\ncode id: {}]".format(self.tokens, self.code_id)
 
     def pattern_form(self):
         return " ".join([token.text for token in self.tokens])
+
 
 class TokenizedMatch(TokenizedPattern):
     '''
