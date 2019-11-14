@@ -1,4 +1,5 @@
 '''MatchPatters: basic modules for tokenized patterns'''
+# -*- coding: utf-8 -*-
 import os
 from taxonomy_matcher.data_utils import normalize
 from taxonomy_matcher.token_position import TokenizedPattern
@@ -32,6 +33,7 @@ class Patterns():
         for (instance, code_id) in self.pattern_instance_generator(source):
             yield TokenizedPattern(
                 self.tokenizer.tokenize(normalize(instance)),
+                instance,
                 code_id
             )
 
@@ -47,6 +49,6 @@ class PatternTypes():
     Basic class to store the pattern file type
     '''
     PATTERN_FILE_TYPE_GZ = 'gazetteer'
-    PATTERN_FILE_TYPE_CT = 'codetable'
+    PATTERN_FILE_TYPE_CT = 'tk_codetable'
     PATTERN_FILE_TYPE_NT = 'normalization_table'
     PATTERN_FILE_TYPE_DEFAULT = 'gazetteer'

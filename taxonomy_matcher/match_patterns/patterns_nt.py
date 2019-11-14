@@ -1,7 +1,10 @@
 '''MatchPatters: module to load GZ/CT/NT to the tokenized patterns'''
+# -*- coding: utf-8 -*-
 import json
+from taxonomy_matcher import LOGGER
 from .patterns import Patterns
 from .patterns import PatternTypes
+from ..data_utils import normalize
 
 
 class PatternsNT(Patterns):
@@ -45,7 +48,10 @@ class PatternsNT(Patterns):
         for record in source['concepts']:
             code_id = record['id']
             for instance in record['surface_forms']:
-                yield (instance['surface_form'], code_id)
+                if instance['surface_form']:
+                    yield (instance['surface_form'], code_id)
+                else:
+                    LOGGER.error("Empty surface form in instance: '%s'", instance)
 
     @staticmethod
     def codeid_description_mapping(codetable_dict):
@@ -84,7 +90,7 @@ class PatternsNT(Patterns):
     @staticmethod
     def surface_form_likelihoods(concept: dict):
         return {
-            surface_form_entry["surface_form"]:
+            normalize(surface_form_entry["surface_form"]):
                 surface_form_entry["skill_likelihood"]
             for surface_form_entry in concept["surface_forms"]
             if "skill_likelihood" in surface_form_entry

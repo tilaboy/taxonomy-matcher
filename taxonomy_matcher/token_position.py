@@ -2,27 +2,9 @@
 Token Classes:
 
 various class to help store tokens with extra informations
-    - TokenWithPos
     - TokenizedPattern
     - TokenizedMatch
 '''
-
-
-class TokenWithPos:
-    '''
-    TokenWithPos: token with start and end position in the text
-        attributes:
-        - text: text in the normalized form
-        - start_pos: start position
-        - end_pos: end position
-    '''
-    def __init__(self, text, start_pos, end_pos):
-        self.text = text
-        self.start_pos = start_pos
-        self.end_pos = end_pos
-
-    def __repr__(self):
-        return "{} [{}:{}]".format(self.text, self.start_pos, self.end_pos)
 
 
 class TokenizedPattern:
@@ -33,18 +15,17 @@ class TokenizedPattern:
         - code_id: the codeid of this pattern belong to
         - skill_likelihood: the likelihood of this pattern to be a skill
     '''
-    def __init__(self, tokens, code_id=None, skill_likelihood=None):
+    def __init__(self, tokens, surface_form='', code_id=None):
         self.tokens = tokens
+        self.surface_form = surface_form
         self.code_id = code_id
-        self.skill_likelihood = skill_likelihood
 
     def __repr__(self):
-        return "\ntokens: {}\ncode id: {}\nskill_likelihood: {}]".format(
-            self.tokens, self.code_id, self.skill_likelihood)
+        return "\ntokens: {}\ncode id: {}]".format( \
+        self.tokens, self.code_id)
 
     def pattern_form(self):
         return " ".join([token.text for token in self.tokens])
-
 
 class TokenizedMatch(TokenizedPattern):
     '''
@@ -60,11 +41,11 @@ class TokenizedMatch(TokenizedPattern):
     '''
 
     def text_range(self):
-        return [self.tokens[0].start_pos, self.tokens[-1].end_pos]
+        return [self.tokens[0].start, self.tokens[-1].end]
 
     def __repr__(self):
         return "\ntokens: {}\ncode id: {}\nstart: {}\nend: {}]".format(
             self.tokens,
             self.code_id,
-            self.tokens[0].start_pos,
-            self.tokens[-1].end_pos)
+            self.tokens[0].start,
+            self.tokens[-1].end)

@@ -1,7 +1,8 @@
-import logging
+'''Matcher class'''
+from easy_tokenizer.tokenizer import Tokenizer
 
+from . import LOGGER
 from .token_trie import TokenTrie
-from .tokenizer import Tokenizer
 
 from .match_patterns import PatternsGZ
 from .match_patterns import PatternsCT
@@ -84,12 +85,15 @@ class Matcher():
 
             if local_match:
                 start_pos, end_pos = local_match.text_range()
-                left_context, right_context = self.prepare_context(
-                    tokens, local_match, idx, text)
-                surface_form = local_match.pattern_form()
+                left_context, right_context = self.prepare_context(tokens,
+                                                                   local_match,
+                                                                   idx,
+                                                                   text)
+                surface_form = local_match.surface_form
+                matched_text = text[start_pos:end_pos]
                 yield MatchedPhrase(
                     surface_form,
-                    text[start_pos:end_pos],
+                    matched_text,
                     start_pos,
                     end_pos - 1,  # prepare for the entity fromwork (in perl)
                     local_match.code_id,
@@ -98,8 +102,10 @@ class Matcher():
                     left_context,
                     right_context,
                     self.code_id_property_lookup(
-                        local_match.code_id, 'skill_likelihoods', dict()
-                    ).get(surface_form, None),
+                            local_match.code_id,
+                            'skill_likelihoods',
+                            dict()
+                    ).get(data_utils.normalize(surface_form), None)
                 )
                 idx += len(local_match.tokens)
             else:
@@ -132,7 +138,7 @@ class Matcher():
                 code_property = self.code_property_mapping[code_id].get(
                     property_name, default)
             else:
-                logging.warning(
+                LOGGER.warning(
                     'WARNING: no property {} for codeid: {}'.
                     format(property_name, code_id)
                 )

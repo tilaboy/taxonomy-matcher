@@ -1,5 +1,6 @@
 '''Data Utils'''
 import re
+from easy_tokenizer.normalizer import normalize_chars
 
 
 def normalize(string):
@@ -12,7 +13,7 @@ def normalize(string):
     output:
         - normalized text string: (string)
     '''
-    return string.lower()
+    return normalize_chars(string).lower()
 
 
 def from_file_to_list(file):

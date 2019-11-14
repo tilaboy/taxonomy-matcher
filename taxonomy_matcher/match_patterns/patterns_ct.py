@@ -1,5 +1,6 @@
 '''MatchPatters: module to load GZ/CT/NT to the tokenized patterns'''
 import xml.etree.ElementTree as ET
+from taxonomy_matcher import LOGGER
 from taxonomy_matcher.data_utils import fetch_node_text
 from .patterns import Patterns
 from .patterns import PatternTypes
@@ -40,13 +41,16 @@ class PatternsCT(Patterns):
 
         output:
             - the pattern, codeid pairs, e.g. ('java developer', '1024')
-
         '''
 
         for record in source.find('CodeRecordList'):
             code_id = record.find('CodeID').text
             for instance in record.iter('InstanceDescription'):
-                yield (instance.text, code_id)
+                if instance.text:
+                    yield (instance.text, code_id)
+                else:
+                    LOGGER.error("Empty instance text: '%s'", instance)
+
 
     @staticmethod
     def codeid_description_mapping(codetable_root):
