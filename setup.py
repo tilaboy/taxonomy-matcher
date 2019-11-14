@@ -11,7 +11,7 @@ with open('HISTORY.rst', "r") as history_file:
     history = history_file.read()
 
 INSTALL_REQUIRES = [
-    "easy_tokenizer == 0.0.6"
+    "easy_tokenizer >= 0.0.8"
 ]
 setup_requirements = ['pytest-runner', ]
 test_requirements = ['pytest', ]
