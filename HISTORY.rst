@@ -1,3 +1,10 @@
+0.0.9 (2019-11-14)
+==================
+
+update the option of likelihood, normalize string for both surface form
+from taxonomy and matched
+
+
 0.0.8 (2019-08-05)
 ==================
 
