@@ -10,8 +10,10 @@ with open('README.rst', "r") as readme_file:
 with open('HISTORY.rst', "r") as history_file:
     history = history_file.read()
 
+INSTALL_REQUIRES = [
+    "easy_tokenizer == 0.0.6"
+]
 setup_requirements = ['pytest-runner', ]
-
 test_requirements = ['pytest', ]
 
 setup(
@@ -33,6 +35,7 @@ setup(
     ],
     long_description=readme + '\n\n' + history,
     test_suite="tests",
+    install_requires=INSTALL_REQUIRES,
     setup_requires=setup_requirements,
     tests_require=test_requirements,
     packages=[
